@@ -8,6 +8,18 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+  toDoList = ['Item 1', 'Item 2', 'Item 3'];
+  newItem = ''
+
   constructor() {}
+
+  onNewItem() {
+    this.toDoList.push(this.newItem);
+    this.newItem = '';
+  }
+
+  onCompleteItem(i: any) {
+    this.toDoList.splice(i, 1);
+  }
 
 }
