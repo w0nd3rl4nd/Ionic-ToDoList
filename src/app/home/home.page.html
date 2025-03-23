@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-title>
       To Do List
@@ -6,15 +6,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-item *ngFor="let item of toDoList; index as i">
-      {{ item }}
-      <ion-icon name="checkmark-circle-outline" slot="end" (click)="onCompleteItem(i)"></ion-icon>
-    </ion-item>
-    <ion-item>
-      <ion-input [(ngModel)]="newItem"></ion-input>
-      <ion-icon name="add-circle-outline" (click)="onNewItem()"></ion-icon>
-    </ion-item>
-  </ion-list>
+<ion-content class="home">
+    <ion-list>
+      <ion-item *ngFor="let item of toDoList; index as i;">
+        <ion-input type="text" [(ngModel)]="item.title" disabled="{{!item.edit}}"></ion-input>
+
+        <ion-icon *ngIf="!item.edit" name="create" (click)="item.edit = true" slot="end"></ion-icon>
+        <ion-icon *ngIf="item.edit" name="save" slot="end" (click)="item.edit = false"></ion-icon>
+        <ion-icon name="checkmark-circle-outline" (click)="onCompleteItem(i)" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="text" placeholder="New Task Title" [(ngModel)]="newTask.title"></ion-input>
+        <ion-icon name="add-circle-outline" (click)="onNewItem()"></ion-icon>
+      </ion-item>
+      <p class="error" *ngIf="error != ''">{{ error }}</p>
+    </ion-list>
 </ion-content>
